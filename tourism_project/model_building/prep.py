@@ -21,10 +21,28 @@ HF_TOKEN = userdata.get("HF_TOKEN") # Get token securely from Colab secrets
 api = HfApi(token=HF_TOKEN)
 DATASET_PATH = "hf://datasets/jai-negi8/Tourism-Package-Prediction/tourism.csv"
 df = pd.read_csv(DATASET_PATH)
-print("Dataset loaded successfully.")
+
+
+#------------------------------------------------
+#df = pd.read_csv("https://huggingface.co/datasets/jai-negi8/Tourism-Package-Prediction/raw/main/tourism.csv")
+#------------------------------------------------
+
+
+#check if dataset loaded correctly from huggingface
+if df is not None:
+    print("Dataset loaded successfully from Huggingface.")
+else:
+  # if data not loaded then load from local file
+    print("HF data not loaded, checking local folder.")
+    df = pd.read_csv("/content/tourism_project/data/tourism.csv")
+    if df is not None:
+      print("Dataset loaded from local folder successfully.")
+    else:
+      print("Data load was unsuccessful.")
 
 # Drop the unique identifier
 df.drop(columns=['CustomerID'], inplace=True)
+df.drop(columns=['Unnamed: 0'], inplace=True)
 
 # Encoding all the categorical from dataset
 label_encoder = LabelEncoder()
@@ -35,19 +53,17 @@ df['MaritalStatus'] = label_encoder.fit_transform(df['MaritalStatus'])
 df['Designation'] = label_encoder.fit_transform(df['Designation'])
 
 target_col = 'ProdTaken'
+
 # Split into X (features) and y (target)
 X = df.drop(columns=[target_col])
 y = df[target_col]
 
 # Perform train-test split
 Xtrain, Xtest, ytrain, ytest = train_test_split(
-    X, y, test_size=0.2, random_state=42
-)
+    X, y, test_size=0.2, random_state=42)
 
+# Convert to CSV
 Xtrain.to_csv("Xtrain.csv",index=False)
-# Add a dummy comment with timestamp to force content change for Xtrain.csv
-with open("Xtrain.csv", "a") as f:
-    f.write(f"\n# Forcing upload: {datetime.datetime.now().isoformat()}\n")
 Xtest.to_csv("Xtest.csv",index=False)
 ytrain.to_csv("ytrain.csv",index=False)
 ytest.to_csv("ytest.csv",index=False)

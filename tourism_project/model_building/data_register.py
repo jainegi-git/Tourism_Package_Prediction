@@ -23,4 +23,3 @@ api.upload_folder(
     repo_id=repo_id,
     repo_type=repo_type
 )
-# Changes

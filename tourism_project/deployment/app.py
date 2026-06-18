@@ -4,7 +4,7 @@ import joblib
 import os
 
 # Define the path to the model
-model_path = "tourism_project/deployment/best_model.joblib" # Assuming it's in the same directory as app.py
+model_path = "best_model.joblib" # Corrected path for deployment to HF Spaces
 
 # Check if the model file exists, if not, download it (though it should be copied by Dockerfile)
 if not os.path.exists(model_path):
