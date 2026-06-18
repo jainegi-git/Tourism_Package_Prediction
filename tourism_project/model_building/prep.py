@@ -51,7 +51,10 @@ df['Occupation'] = label_encoder.fit_transform(df['Occupation'])
 df['Gender'] = label_encoder.fit_transform(df['Gender'])
 df['MaritalStatus'] = label_encoder.fit_transform(df['MaritalStatus'])
 df['Designation'] = label_encoder.fit_transform(df['Designation'])
+df['ProductPitched'] = label_encoder.fit_transform(df['ProductPitched'])
 
+
+# Define the target variable
 target_col = 'ProdTaken'
 
 # Split into X (features) and y (target)
