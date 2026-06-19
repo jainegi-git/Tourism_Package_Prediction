@@ -86,8 +86,8 @@ else:
             # Make prediction
             # The model pipeline handles preprocessing (scaling and one-hot encoding)
             prediction_proba = model.predict_proba(input_data)[:, 1]
-            # Use the same classification_threshold as in training (0.45)
-            classification_threshold = 0.45
+            # Use the same classification_threshold as in training (0.55)
+            classification_threshold = 0.55
             prediction = (prediction_proba >= classification_threshold).astype(int)[0]
 
             result_text = "Customer will purchase the Wellness Tourism Package" if prediction == 1 else "Customer will NOT purchase the Wellness Tourism Package"
