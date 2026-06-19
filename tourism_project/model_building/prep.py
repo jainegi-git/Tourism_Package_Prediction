@@ -14,10 +14,10 @@ from sklearn.preprocessing import LabelEncoder
 
 # for hugging face space authentication to upload files
 from huggingface_hub import login, HfApi
-from google.colab import userdata # Import userdata
 
 # Define constants for the dataset and output paths
 try:
+    from google.colab import userdata
     HF_TOKEN = userdata.get("HF_TOKEN")
 except ImportError:
     HF_TOKEN = os.environ.get("HF_TOKEN")

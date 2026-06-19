@@ -1,10 +1,10 @@
 from huggingface_hub.utils import RepositoryNotFoundError, HfHubHTTPError
 from huggingface_hub import HfApi, create_repo
 import os
-from google.colab import userdata
 
 # Handle token for both Colab and GitHub Actions
 try:
+    from google.colab import userdata
     HF_TOKEN = userdata.get("HF_TOKEN")
 except ImportError:
     HF_TOKEN = os.environ.get("HF_TOKEN")
