@@ -3,9 +3,13 @@ from huggingface_hub import HfApi, create_repo
 import os
 from google.colab import userdata
 
-HF_TOKEN = userdata.get("HF_TOKEN") # Get token securely from Colab secrets
-api = HfApi(token=HF_TOKEN)
+# Handle token for both Colab and GitHub Actions
+try:
+    HF_TOKEN = userdata.get("HF_TOKEN")
+except ImportError:
+    HF_TOKEN = os.environ.get("HF_TOKEN")
 
+api = HfApi(token=HF_TOKEN)
 repo_id = "jai-negi8/Tourism-Package-Prediction"
 repo_type = "dataset"
 

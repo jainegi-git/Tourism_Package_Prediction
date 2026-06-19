@@ -17,7 +17,11 @@ from huggingface_hub import login, HfApi
 from google.colab import userdata # Import userdata
 
 # Define constants for the dataset and output paths
-HF_TOKEN = userdata.get("HF_TOKEN") # Get token securely from Colab secrets
+try:
+    HF_TOKEN = userdata.get("HF_TOKEN")
+except ImportError:
+    HF_TOKEN = os.environ.get("HF_TOKEN")
+
 api = HfApi(token=HF_TOKEN)
 DATASET_PATH = "hf://datasets/jai-negi8/Tourism-Package-Prediction/tourism.csv"
 df = pd.read_csv(DATASET_PATH)
@@ -26,7 +30,6 @@ df = pd.read_csv(DATASET_PATH)
 #------------------------------------------------
 #df = pd.read_csv("https://huggingface.co/datasets/jai-negi8/Tourism-Package-Prediction/raw/main/tourism.csv")
 #------------------------------------------------
-
 
 #check if dataset loaded correctly from huggingface
 if df is not None:

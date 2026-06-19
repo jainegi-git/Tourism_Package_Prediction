@@ -2,7 +2,11 @@ from huggingface_hub import HfApi
 import os
 from google.colab import userdata # Import userdata
 
-HF_TOKEN = userdata.get("HF_TOKEN") # Get token securely from Colab secrets
+try:
+    HF_TOKEN = userdata.get("HF_TOKEN") # Get token securely from Colab secrets
+except ImportError:
+    HF_TOKEN = os.environ.get("HF_TOKEN") # For github actions to work
+
 api = HfApi(token=HF_TOKEN)
 
 api.upload_folder(
